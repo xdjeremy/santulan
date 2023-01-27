@@ -83,6 +83,7 @@ const LoginCard: FC = () => {
           />
           <SimpleInput
             name={"password"}
+            type={"password"}
             register={register}
             validationSchema={LoginValidation.password}
             label={"Password"}
