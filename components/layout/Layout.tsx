@@ -8,7 +8,7 @@ interface Props {
 
 const Layout: FC<Props> = ({ children, active }) => {
   return (
-    <div className={"h-screen bg-base-100"}>
+    <div className={"h-screen bg-base-100 pb-5"}>
       <NavBar active={active} />
       {children}
     </div>
