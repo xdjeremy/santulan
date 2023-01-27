@@ -4,19 +4,22 @@ import Logo from "../../public/logo.png";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { classNames } from "@/utils";
+import { useUser } from "@/context";
 
 export enum LinkName {
   Home = "Home",
   About = "About Santulan",
   CreateAccount = "Create Account",
   Login = "Login",
+
+  Logout = "Logout",
 }
 export interface ILink {
   name: LinkName;
   href: string;
 }
 
-const links: ILink[] = [
+const loggedOutLinks: ILink[] = [
   {
     name: LinkName.Home,
     href: "/",
@@ -35,11 +38,28 @@ const links: ILink[] = [
   },
 ];
 
+const loggedInLinks: ILink[] = [
+  {
+    name: LinkName.Home,
+    href: "/",
+  },
+  {
+    name: LinkName.About,
+    href: "/about",
+  },
+  {
+    name: LinkName.Logout,
+    href: "/logout",
+  },
+];
+
 interface Props {
   active: ILink["name"];
 }
 
 const NavBar: FC<Props> = ({ active }) => {
+  const { user } = useUser();
+
   return (
     <div className={"h-20 bg-primary-600 xl:h-32"}>
       <div
@@ -57,20 +77,39 @@ const NavBar: FC<Props> = ({ active }) => {
           <Bars3Icon className={"h-6 w-6 text-white"} />
         </span>
         <div className={"hidden flex-row items-center md:flex"}>
-          {links.map((link) => {
-            return (
-              <Link
-                href={link.href}
-                key={link.name}
-                className={classNames(
-                  active === link.name ? "bg-primary-800" : "bg-primary-600",
-                  "rounded-md px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-800 md:py-3.5 md:text-base"
-                )}
-              >
-                {link.name}
-              </Link>
-            );
-          })}
+          {user?.isLoggedIn
+            ? loggedInLinks.map((link) => {
+                return (
+                  <Link
+                    href={link.href}
+                    key={link.name}
+                    className={classNames(
+                      active === link.name
+                        ? "bg-primary-800"
+                        : "bg-primary-600",
+                      "rounded-md px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-800 md:py-3.5 md:text-base"
+                    )}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })
+            : loggedOutLinks.map((outLink) => {
+                return (
+                  <Link
+                    href={outLink.href}
+                    key={outLink.name}
+                    className={classNames(
+                      active === outLink.name
+                        ? "bg-primary-800"
+                        : "bg-primary-600",
+                      "rounded-md px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-800 md:py-3.5 md:text-base"
+                    )}
+                  >
+                    {outLink.name}
+                  </Link>
+                );
+              })}
         </div>
       </div>
     </div>
