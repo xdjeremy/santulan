@@ -14,10 +14,14 @@ interface FormInputs {
   pocketBaseError?: string;
 }
 
+interface Props {
+  setStep: (step: 1 | 2) => void;
+}
+
 const ErrorMessage = ({ message }: { message: string }) => {
   return <div className="mb-4 text-sm text-error-400">{message}</div>;
 };
-const RegisterCard: FC = () => {
+const RegisterCard: FC<Props> = ({ setStep }) => {
   const {
     register,
     formState: { errors },
@@ -48,6 +52,7 @@ const RegisterCard: FC = () => {
       });
 
       toast.success("Account created successfully");
+      setStep(2);
     } catch (err: any) {
       const obj = Object.keys(err.data.data);
       obj.map((key) => {
