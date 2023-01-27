@@ -1,13 +1,13 @@
 import React, { FC } from "react";
-import { LinkName, NavBar } from "@/components/navbar";
+import { LinkName } from "@/components/navbar";
 import Hero from "./Hero";
+import { Layout } from "@/components/layout";
 
 const LandingPage: FC = () => {
   return (
-    <div>
-      <NavBar active={LinkName.Home} />
+    <Layout active={LinkName.Home}>
       <Hero />
-    </div>
+    </Layout>
   );
 };
 

@@ -1,0 +1,18 @@
+import React, { FC, ReactNode } from "react";
+import { LinkName, NavBar } from "@/components/navbar";
+
+interface Props {
+  children: ReactNode;
+  active: LinkName;
+}
+
+const Layout: FC<Props> = ({ children, active }) => {
+  return (
+    <div className={"h-screen bg-base-100"}>
+      <NavBar active={active} />
+      {children}
+    </div>
+  );
+};
+
+export { Layout };
