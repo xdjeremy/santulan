@@ -3,6 +3,8 @@ import { Button, SimpleInput } from "@/components/common";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { LoginValidation } from "@/utils/formValidations";
 import toast from "react-hot-toast";
+import { pocketBase } from "@/utils";
+import { useRouter } from "next/router";
 
 interface FormInputs {
   email: string;
@@ -24,12 +26,24 @@ const LoginCard: FC = () => {
   } = useForm<FormInputs>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const router = useRouter();
   const loginHandler: SubmitHandler<FormInputs> = async ({
     email,
     password,
   }) => {
     try {
       setIsLoading(true);
+
+      await pocketBase.collection("users").authWithPassword(email, password);
+
+      // save to cookie
+      document.cookie = pocketBase.authStore.exportToCookie({
+        httpOnly: false,
+      });
+
+      //redirect to dashboard
+      await router.push("/");
+
       toast.success("Login successful");
     } catch (err: any) {
       setError("pocketBaseError", {
