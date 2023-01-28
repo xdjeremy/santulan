@@ -50,6 +50,7 @@ const RegisterCard: FC<Props> = ({ setStep }) => {
         passwordConfirm,
         name,
         address,
+        role: "member",
       });
 
       toast.success("Account created successfully");
