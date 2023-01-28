@@ -5,12 +5,12 @@ import { pbClient } from "@/utils/ssr";
 import { useEffectOnce } from "usehooks-ts";
 import { useUser } from "@/context";
 import { AnnoucementsResponse } from "@/types";
-import * as console from "console";
 
 interface Props {
   userData: any;
+  announcements: any;
 }
-const Index: NextPage<Props> = ({ userData }) => {
+const Index: NextPage<Props> = ({ userData, announcements }) => {
   const { setUser } = useUser();
 
   useEffectOnce(() => {
@@ -18,7 +18,7 @@ const Index: NextPage<Props> = ({ userData }) => {
   });
   return (
     <>
-      <LandingPage />
+      <LandingPage announcements={JSON.parse(announcements)} />
     </>
   );
 };
@@ -32,12 +32,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // get announcements
   const announcements = await pb.client
     .collection("announcements")
-    .getFullList<AnnoucementsResponse>();
-  console.log(announcements);
+    .getFullList<AnnoucementsResponse>(3, {
+      sort: "-created",
+    });
 
   return {
     props: {
       userData: JSON.stringify(user),
+      announcements: JSON.stringify(announcements),
     },
   };
 };
