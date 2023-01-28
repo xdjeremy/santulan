@@ -13,7 +13,7 @@ const AnnouncementCard: FC<Props> = ({ title, content, href }) => {
       <h1 className={"text-2xl font-bold"}>{title}</h1>
       <p className={"text-lg line-clamp-5"}>{content}</p>
       <Link
-        href={href}
+        href={`/post/${href}`}
         className={
           "flex flex-row items-center justify-end text-base font-bold text-primary-500 hover:underline"
         }
