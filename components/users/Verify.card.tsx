@@ -1,65 +1,24 @@
 import React, { FC, useState } from "react";
-import { classNames } from "@/utils";
+import { classNames, pocketBase } from "@/utils";
 import { Button } from "@/components/common";
-
-interface User {
-  name: string;
-  email: string;
-}
-
-const users: User[] = [
-  {
-    name: "monds",
-    email: "mitang@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-  {
-    name: "mons",
-    email: "monds@gmail.com",
-  },
-];
+import useSWR from "swr";
+import { UsersResponse } from "@/types";
+import VerifyInputItem from "@/components/users/VerifyInput.item";
 
 const VerifyCard: FC = () => {
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UsersResponse | null>(null);
+
+  const fetcher = async (): Promise<UsersResponse[]> => {
+    return await pocketBase
+      .collection("users")
+      .getFullList<UsersResponse>(100, {
+        filter: "approved = false",
+      });
+  };
+
+  const { data, error } = useSWR<UsersResponse[]>(["users"], fetcher);
+
+  console.log(data);
 
   return (
     <div>
@@ -69,33 +28,29 @@ const VerifyCard: FC = () => {
         </h2>
       </div>
       <div className={"bg-base-200 px-3 py-10 text-base-900"}>
-        <div className={"flex flex-row items-center gap-3"}>
-          <label htmlFor={"user"}>Name</label>
-          <input
-            name={"user"}
-            readOnly={true}
-            type={"text"}
-            className="flex w-full grow appearance-none border border-transparent border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 disabled:text-base-900 disabled:opacity-50"
-            disabled={true}
-            value={selectedUser?.name}
-          />
-        </div>
+        <VerifyInputItem value={selectedUser?.name} title={"Name"} />
+        <VerifyInputItem value={selectedUser?.address} title={"Address"} />
+        <VerifyInputItem value={selectedUser?.id} title={"User ID"} />
 
         <div className={"mt-8 flex h-96 flex-col overflow-auto bg-white"}>
-          {users.map((user) => {
-            return (
-              <div
-                key={user.name}
-                onClick={() => setSelectedUser(user)}
-                className={classNames(
-                  selectedUser === user ? "bg-primary-300" : "",
-                  "cursor-pointer py-2 px-5 hover:bg-base-100"
-                )}
-              >
-                {user.email}
-              </div>
-            );
-          })}
+          {data &&
+            !error &&
+            data.map((user) => {
+              return (
+                <div
+                  key={user.name}
+                  onClick={() => setSelectedUser(user)}
+                  className={classNames(
+                    selectedUser === user
+                      ? "hover:base-primary-400 bg-primary-300"
+                      : "hover:bg-base-100",
+                    "cursor-pointer py-2 px-5"
+                  )}
+                >
+                  {user.name}
+                </div>
+              );
+            })}
         </div>
 
         <div
