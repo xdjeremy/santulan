@@ -15,6 +15,7 @@ export enum LinkName {
 
   Logout = "Logout",
   Users = "Users",
+  Articles = "Articles",
 }
 export interface ILink {
   name: LinkName;
@@ -59,6 +60,10 @@ const adminLinks: ILink[] = [
   {
     name: LinkName.Users,
     href: "/users",
+  },
+  {
+    name: LinkName.Articles,
+    href: "/articles",
   },
 ];
 

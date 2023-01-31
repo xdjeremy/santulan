@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { AnnouncementsResponse } from "@/types";
 import { format } from "date-fns";
+import Link from "next/link";
 
 interface Props {
   data: AnnouncementsResponse<unknown>[] | undefined;
@@ -54,12 +55,12 @@ const ArticlesTableItem: FC<Props> = ({ data, error }) => {
                         {announcement && announcement.expand?.user!.name}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                        <a
-                          href="#"
+                        <Link
+                          href={`/articles/edit/${announcement.id}`}
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           Edit
-                        </a>
+                        </Link>
                       </td>
                     </tr>
                   ))}

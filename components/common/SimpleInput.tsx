@@ -35,7 +35,7 @@ const SimpleInput: FC<Props> = ({
           placeholder={placeholder}
           {...register(name, validationSchema)}
         />
-        <p className={"text- mt-1 ml-1 text-sm text-error-400"}>{error}</p>
+        <p className={"mt-1 ml-1 text-sm text-error-400"}>{error}</p>
       </div>
     </>
   );

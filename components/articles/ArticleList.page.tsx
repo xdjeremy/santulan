@@ -25,7 +25,7 @@ const ArticleListPage: FC = () => {
   console.log(data);
 
   return (
-    <Layout active={LinkName.Home}>
+    <Layout active={LinkName.Articles}>
       <div
         className={"mx-auto flex w-full max-w-4xl flex-col gap-7 pt-10 pb-20"}
       >
