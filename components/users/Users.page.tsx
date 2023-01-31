@@ -6,8 +6,7 @@ import UserInfoCard from "@/components/users/UserInfo.card";
 
 const UsersPage: FC = () => {
   return (
-    // TODO: change active page
-    <Layout active={LinkName.Home}>
+    <Layout active={LinkName.Users}>
       <div
         className={
           "mx-auto mt-10 grid w-full max-w-7xl grid-cols-1 gap-32 px-10 lg:grid-cols-2"

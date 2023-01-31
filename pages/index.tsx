@@ -4,7 +4,7 @@ import { LandingPage } from "@/components/landing";
 import { pbClient } from "@/utils/ssr";
 import { useEffectOnce } from "usehooks-ts";
 import { useUser } from "@/context";
-import { AnnoucementsResponse } from "@/types";
+import { AnnouncementsResponse } from "@/types";
 
 interface Props {
   userData: any;
@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // get announcements
   const announcements = await pb.client
     .collection("announcements")
-    .getFullList<AnnoucementsResponse>(3, {
+    .getFullList<AnnouncementsResponse>(3, {
       sort: "-created",
     });
 

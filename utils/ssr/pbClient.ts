@@ -49,6 +49,7 @@ class pbClient {
           email: "",
           name: "",
           verified: false,
+          role: "",
         };
       }
 
@@ -59,6 +60,7 @@ class pbClient {
         email: user?.email,
         name: user?.name,
         verified: user?.verified,
+        role: user?.role,
       };
     } catch (err: any) {
       return {
@@ -67,6 +69,7 @@ class pbClient {
         email: "",
         name: "",
         verified: false,
+        role: "",
       };
     }
   }

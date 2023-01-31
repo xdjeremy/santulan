@@ -6,6 +6,7 @@ export interface UserData {
   email: string;
   name: string;
   verified: boolean;
+  role: string;
 }
 export const useUser = () => {
   return useContext(UserContext);
