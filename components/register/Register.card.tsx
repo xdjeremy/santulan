@@ -44,7 +44,6 @@ const RegisterCard: FC<Props> = ({ setStep }) => {
     try {
       setIsLoading(true);
 
-      // TODO: add role to user
       await pocketBase.collection("users").create({
         email,
         password,
