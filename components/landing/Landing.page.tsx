@@ -3,10 +3,10 @@ import { LinkName } from "@/components/navbar";
 import Hero from "./Hero";
 import { Layout } from "@/components/layout";
 import AnnouncementSection from "@/components/landing/Announcement.section";
-import { AnnoucementsResponse } from "@/types";
+import { AnnouncementsResponse } from "@/types";
 
 interface Props {
-  announcements: AnnoucementsResponse;
+  announcements: AnnouncementsResponse;
 }
 const LandingPage: FC<Props> = ({ announcements }) => {
   return (

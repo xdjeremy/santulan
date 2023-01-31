@@ -4,7 +4,7 @@ import { pbClient } from "@/utils/ssr";
 import { useUser } from "@/context";
 import { useEffectOnce } from "usehooks-ts";
 import { PostPage } from "@/components/post";
-import { AnnoucementsResponse } from "@/types";
+import { AnnouncementsResponse } from "@/types";
 
 interface Props {
   userData: any;
@@ -12,7 +12,7 @@ interface Props {
 }
 const Post: NextPage<Props> = ({ userData, post }) => {
   const { setUser } = useUser();
-  const announcement: AnnoucementsResponse = JSON.parse(post);
+  const announcement: AnnouncementsResponse = JSON.parse(post);
 
   console.log(announcement);
 
@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // fetch post data from db
   const post = await pb.client
     .collection("announcements")
-    .getOne<AnnoucementsResponse>(id)
+    .getOne<AnnouncementsResponse>(id)
     .catch(() => {
       return {
         notFound: true,
