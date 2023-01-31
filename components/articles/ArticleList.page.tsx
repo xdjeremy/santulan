@@ -18,6 +18,7 @@ const ArticleListPage: FC = () => {
       .collection(collection)
       .getList<AnnouncementsResponse>(1, 10, {
         expand: "user",
+        sort: "-created",
       });
   };
 
