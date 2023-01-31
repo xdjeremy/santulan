@@ -4,14 +4,14 @@ import Spinner from "@/components/common/Spinner";
 
 interface Props {
   type: "submit" | "button";
-  onClick?: () => void;
+  clickHandler?: () => void | Promise<void> | Promise<any>;
   children: ReactNode;
   loading?: boolean;
   color?: "primary" | "danger";
 }
 const Button: FC<Props> = ({
   type,
-  onClick,
+  clickHandler,
   children,
   loading,
   color = "primary",
@@ -19,7 +19,7 @@ const Button: FC<Props> = ({
   return (
     <button
       type={type}
-      onClick={() => onClick}
+      onClick={() => clickHandler && clickHandler()}
       className={classNames(
         color === "primary"
           ? "bg-primary-600 hover:bg-primary-700"
