@@ -24,7 +24,7 @@ const Button: FC<Props> = ({
         color === "primary"
           ? "bg-primary-600 hover:bg-primary-700"
           : "bg-error-400 hover:bg-error-600",
-        "px-10 py-3 text-primary-50 disabled:opacity-50"
+        "flex flex-row items-center px-10 py-3 text-primary-50 disabled:opacity-50"
       )}
       disabled={loading}
     >
