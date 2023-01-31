@@ -26,7 +26,6 @@ const Post: NextPage<Props> = ({ userData, post }) => {
         title={announcement.title}
         content={announcement.content}
         date={announcement.created}
-        author={"monds"}
       />
     </>
   );

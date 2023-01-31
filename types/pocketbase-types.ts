@@ -3,7 +3,7 @@
 */
 
 export enum Collections {
-	Annoucements = "annoucements",
+	Announcements = "announcements",
 	Users = "users",
 }
 
@@ -30,23 +30,29 @@ export type AuthSystemFields<T = never> = {
 
 // Record types for each collection
 
-export type AnnoucementsRecord = {
+export type AnnouncementsRecord = {
 	content: string
 	user: RecordIdString
 	title: string
 }
 
+export enum UsersRoleOptions {
+	"member" = "member",
+	"admin" = "admin",
+}
 export type UsersRecord = {
 	name: string
 	avatar?: string
 	address: string
+	role: UsersRoleOptions
+	approved?: boolean
 }
 
 // Response types include system fields and match responses from the PocketBase API
-export type AnnoucementsResponse<Texpand = unknown> = AnnoucementsRecord & BaseSystemFields<Texpand>
+export type AnnouncementsResponse<Texpand = unknown> = AnnouncementsRecord & BaseSystemFields<Texpand>
 export type UsersResponse = UsersRecord & AuthSystemFields
 
 export type CollectionRecords = {
-	annoucements: AnnoucementsRecord
+	announcements: AnnouncementsRecord
 	users: UsersRecord
 }

@@ -4,6 +4,7 @@ import { RegisterValidation } from "@/utils/formValidations";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { pocketBase } from "@/utils";
 import toast from "react-hot-toast";
+import { UsersRoleOptions } from "@/types";
 
 interface FormInputs {
   email: string;
@@ -50,7 +51,8 @@ const RegisterCard: FC<Props> = ({ setStep }) => {
         passwordConfirm,
         name,
         address,
-        role: "member",
+        role: UsersRoleOptions.member,
+        approved: false,
       });
 
       toast.success("Account created successfully");
