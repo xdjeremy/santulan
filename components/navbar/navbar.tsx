@@ -12,6 +12,7 @@ export enum LinkName {
   About = "About Santulan",
   CreateAccount = "Create Account",
   Login = "Login",
+  Tickets = "Tickets",
 
   Logout = "Logout",
   Users = "Users",
@@ -49,6 +50,10 @@ const loggedInLinks: ILink[] = [
   {
     name: LinkName.About,
     href: "/about",
+  },
+  {
+    name: LinkName.Tickets,
+    href: "/tickets",
   },
   {
     name: LinkName.Logout,
