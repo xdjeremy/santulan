@@ -36,6 +36,18 @@ const LoginCard: FC = () => {
 
       await pocketBase.collection("users").authWithPassword(email, password);
 
+      const user = await pocketBase.authStore.model;
+      if (user && !user.approved) {
+        // logout
+        await pocketBase.authStore.clear();
+
+        setError("pocketBaseError", {
+          type: "manual",
+          message: "Your account is not approved yet.",
+        });
+        return;
+      }
+
       // save to cookie
       document.cookie = pocketBase.authStore.exportToCookie({
         httpOnly: false,
