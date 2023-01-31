@@ -69,8 +69,6 @@ interface Props {
 const NavBar: FC<Props> = ({ active }) => {
   const { user } = useUser();
 
-  console.log(user);
-
   return (
     <div className={"h-20 bg-primary-600 xl:h-32"}>
       <div
