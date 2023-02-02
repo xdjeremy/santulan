@@ -9,13 +9,11 @@ interface Props {
 
 const Layout: FC<Props> = ({ children, active }) => {
   return (
-    <>
-      <div className={"h-full bg-base-100 pb-5"}>
-        <NavBar active={active} />
-        {children}
-      </div>
+    <div className={"flex min-h-screen flex-col justify-between bg-base-100"}>
+      <NavBar active={active} />
+      <main className={"flex flex-col bg-base-100 pb-5"}>{children}</main>
       <Footer />
-    </>
+    </div>
   );
 };
 
