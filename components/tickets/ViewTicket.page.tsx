@@ -4,18 +4,29 @@ import { LinkName } from "@/components/navbar";
 import { useRouter } from "next/router";
 import { pocketBase } from "@/utils";
 import useSWR from "swr";
-import { TicketMessagesResponse, TicketsResponse } from "@/types";
+import {
+  TicketMessagesRecord,
+  TicketMessagesResponse,
+  TicketsResponse,
+} from "@/types";
 import { useEffectOnce } from "usehooks-ts";
 import { Button } from "@/components/common";
 import TicketChatItem from "@/components/tickets/TicketChat.item";
 import { useUser } from "@/context";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { TicketMessageValidation } from "@/utils/formValidations";
+import toast from "react-hot-toast";
 
+interface FormInputs {
+  message: string;
+}
 const ViewTicketPage: FC = () => {
   const router = useRouter();
   const { id } = router.query;
   const [ticketSubject, setTicketSubject] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { user } = useUser();
+  const { handleSubmit, register, setValue } = useForm<FormInputs>();
 
   useEffectOnce(() => {
     const getTicket = async () => {
@@ -49,7 +60,36 @@ const ViewTicketPage: FC = () => {
     fetch
   );
 
-  console.log(data);
+  const submitMessageHandler: SubmitHandler<FormInputs> = async ({
+    message,
+  }) => {
+    try {
+      setIsLoading(true);
+      if (!user?.id || !id) {
+        toast.error("You must be logged in to create a ticket");
+        return;
+      }
+      const messageData: TicketMessagesRecord = {
+        message,
+        user: user.id,
+        ticket_id: id.toString(),
+      };
+      const ticketData = await pocketBase
+        .collection("ticket_messages")
+        .create<TicketMessagesResponse>(messageData);
+
+      // reset form
+      setValue("message", "");
+
+      // add new message to data array
+      data?.push(ticketData);
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Layout active={LinkName.Tickets}>
       <div className={"mx-auto mt-12 w-full max-w-lg"}>
@@ -58,7 +98,10 @@ const ViewTicketPage: FC = () => {
             {ticketSubject}
           </h2>
         </div>
-        <div className={"bg-white"}>
+        <form
+          onSubmit={handleSubmit(submitMessageHandler)}
+          className={"bg-white"}
+        >
           <div
             className={
               "flex max-h-96 flex-col gap-2 overflow-y-scroll px-3 py-5"
@@ -75,10 +118,16 @@ const ViewTicketPage: FC = () => {
               ))}
           </div>
           <div className={"flex flex-row"}>
-            <input className={"w-full px-3"} />
-            <Button type={"submit"}>Send</Button>
+            <input
+              {...register("message", TicketMessageValidation.message)}
+              disabled={isLoading}
+              className={"w-full px-3"}
+            />
+            <Button loading={isLoading} type={"submit"}>
+              Send
+            </Button>
           </div>
-        </div>
+        </form>
       </div>
     </Layout>
   );
