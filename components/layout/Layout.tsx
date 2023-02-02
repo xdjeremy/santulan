@@ -11,7 +11,7 @@ const Layout: FC<Props> = ({ children, active }) => {
   return (
     <div className={"flex min-h-screen flex-col justify-between bg-base-100"}>
       <NavBar active={active} />
-      <main className={"flex flex-col bg-base-100 pb-5"}>{children}</main>
+      <main className={"z-20 flex flex-col bg-base-100 pb-5"}>{children}</main>
       <Footer />
     </div>
   );
