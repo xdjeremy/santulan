@@ -2,7 +2,6 @@ import React from "react";
 import { GetServerSideProps, NextPage } from "next";
 import { TicketListPage } from "@/components/tickets";
 import { pbClient } from "@/utils/ssr";
-import { UsersRoleOptions } from "@/types";
 import { useUser } from "@/context";
 import { useEffectOnce } from "usehooks-ts";
 
@@ -29,16 +28,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   // get user data
   const user = pb.getUserData();
-
-  // check if admin
-  if (user.role !== UsersRoleOptions.admin) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
 
   return {
     props: {

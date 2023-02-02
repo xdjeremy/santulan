@@ -18,7 +18,7 @@ const TicketListPage: FC = () => {
         <div className={"flex flex-row items-center justify-between px-5"}>
           <h1 className={"text-xl font-bold text-base-900"}>Tickets</h1>
           {user?.role === UsersRoleOptions.member && (
-            <Link href={"/articles/create"}>
+            <Link href={"/tickets/new"}>
               <Button type={"button"}>
                 <PlusIcon className={"mr-2 h-5 w-5"} />
                 Create Ticket

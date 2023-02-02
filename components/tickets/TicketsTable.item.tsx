@@ -86,6 +86,4 @@ const TicketsTableItem: FC = () => {
   );
 };
 
-// TODO: SSR user check for admin only
-
 export default TicketsTableItem;

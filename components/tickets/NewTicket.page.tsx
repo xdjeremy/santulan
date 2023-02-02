@@ -7,14 +7,15 @@ import { TicketValidation } from "@/utils/formValidations";
 import { useEffectOnce } from "usehooks-ts";
 import { pocketBase } from "@/utils";
 import toast from "react-hot-toast";
-import { TicketsRecord } from "@/types";
+import { TicketMessagesRecord, TicketsRecord, TicketsResponse } from "@/types";
+import { useRouter } from "next/router";
 
 interface FormInputs {
   name: string;
   subject: string;
   message: string;
 }
-const TicketsPage: FC = () => {
+const NewTicketPage: FC = () => {
   const {
     register,
     setValue,
@@ -23,6 +24,7 @@ const TicketsPage: FC = () => {
     setError,
   } = useForm<FormInputs>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffectOnce(() => {
     // set user name as default value
@@ -42,14 +44,25 @@ const TicketsPage: FC = () => {
         return;
       }
 
-      const data: TicketsRecord = {
+      const ticketData: TicketsRecord = {
         subject,
-        message,
         user: pocketBase.authStore.model.id,
       };
 
-      await pocketBase.collection("tickets").create(data);
+      const ticket = await pocketBase
+        .collection("tickets")
+        .create<TicketsResponse>(ticketData);
+
+      // create a new message
+      const ticketMessage: TicketMessagesRecord = {
+        message,
+        user: pocketBase.authStore.model.id,
+        ticket_id: ticket.id,
+      };
+      await pocketBase.collection("ticket_messages").create(ticketMessage);
+
       toast.success("Ticket created successfully");
+      await router.push("/tickets");
     } catch (err: any) {
       const obj = Object.keys(err.data.data);
       obj.map((key) => {
@@ -119,4 +132,4 @@ const TicketsPage: FC = () => {
   );
 };
 
-export { TicketsPage };
+export { NewTicketPage };

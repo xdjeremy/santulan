@@ -46,7 +46,6 @@ export type TicketMessagesRecord = {
 
 export type TicketsRecord = {
 	subject: string
-	message: string
 	user: RecordIdString
 }
 

@@ -3,12 +3,12 @@ import { GetServerSideProps, NextPage } from "next";
 import { pbClient } from "@/utils/ssr";
 import { useUser } from "@/context";
 import { useEffectOnce } from "usehooks-ts";
-import { ViewTicketPage } from "@/components/tickets";
+import { NewTicketPage } from "@/components/tickets";
 
 interface Props {
   userData: any;
 }
-const Ticket: NextPage<Props> = ({ userData }) => {
+const NewTicket: NextPage<Props> = ({ userData }) => {
   const { setUser } = useUser();
 
   useEffectOnce(() => {
@@ -17,7 +17,7 @@ const Ticket: NextPage<Props> = ({ userData }) => {
 
   return (
     <>
-      <ViewTicketPage />
+      <NewTicketPage />
     </>
   );
 };
@@ -35,4 +35,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 
-export default Ticket;
+export default NewTicket;
