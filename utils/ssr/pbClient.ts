@@ -3,6 +3,7 @@ import { NextApiRequestCookies } from "next/dist/server/api-utils";
 import { GetServerSidePropsContext } from "next";
 import { IncomingMessage, ServerResponse } from "http";
 import { UserData } from "@/context/User.context";
+import { UsersRoleOptions } from "@/types";
 
 class pbClient {
   public client: PocketBase;
@@ -49,7 +50,7 @@ class pbClient {
           email: "",
           name: "",
           verified: false,
-          role: "",
+          role: UsersRoleOptions.member,
         };
       }
 
@@ -69,7 +70,7 @@ class pbClient {
         email: "",
         name: "",
         verified: false,
-        role: "",
+        role: UsersRoleOptions.member,
       };
     }
   }
