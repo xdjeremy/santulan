@@ -4,6 +4,7 @@
 
 export enum Collections {
 	Announcements = "announcements",
+	TicketMessages = "ticket_messages",
 	Tickets = "tickets",
 	Users = "users",
 }
@@ -37,6 +38,12 @@ export type AnnouncementsRecord = {
 	title: string
 }
 
+export type TicketMessagesRecord = {
+	user: RecordIdString
+	ticket_id: RecordIdString
+	message: string
+}
+
 export type TicketsRecord = {
 	subject: string
 	message: string
@@ -57,11 +64,13 @@ export type UsersRecord = {
 
 // Response types include system fields and match responses from the PocketBase API
 export type AnnouncementsResponse<Texpand = unknown> = AnnouncementsRecord & BaseSystemFields<Texpand>
+export type TicketMessagesResponse<Texpand = unknown> = TicketMessagesRecord & BaseSystemFields<Texpand>
 export type TicketsResponse<Texpand = unknown> = TicketsRecord & BaseSystemFields<Texpand>
 export type UsersResponse = UsersRecord & AuthSystemFields
 
 export type CollectionRecords = {
 	announcements: AnnouncementsRecord
+	ticket_messages: TicketMessagesRecord
 	tickets: TicketsRecord
 	users: UsersRecord
 }

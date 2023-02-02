@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { UsersRoleOptions } from "@/types";
 
 export interface UserData {
   isLoggedIn: boolean;
@@ -6,7 +7,7 @@ export interface UserData {
   email: string;
   name: string;
   verified: boolean;
-  role: string;
+  role: UsersRoleOptions;
 }
 export const useUser = () => {
   return useContext(UserContext);
