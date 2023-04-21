@@ -1,52 +1,61 @@
-import { RegisterOptions } from "react-hook-form";
+import {RegisterOptions} from "react-hook-form";
 
 const EMAIL_REGEX_PATTERN = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+const PASSWORD_REGEX_PATTERN = /^\S+$/;
 
 const RegisterValidation: {
-  [x: string]: RegisterOptions;
+    [x: string]: RegisterOptions;
 } = {
-  email: {
-    required: {
-      value: true,
-      message: "Email is required",
+    email: {
+        required: {
+            value: true,
+            message: "Email is required",
+        },
+        pattern: {
+            value: EMAIL_REGEX_PATTERN,
+            message: "Invalid email",
+        },
     },
-    pattern: {
-      value: EMAIL_REGEX_PATTERN,
-      message: "Invalid email",
+    name: {
+        required: {
+            value: true,
+            message: "Name is required",
+        },
     },
-  },
-  name: {
-    required: {
-      value: true,
-      message: "Name is required",
+    password: {
+        required: {
+            value: true,
+            message: "Password is required",
+        },
+        minLength: {
+            value: 8,
+            message: "Password must be at least 8 characters long",
+        },
+        pattern: {
+            value: PASSWORD_REGEX_PATTERN,
+            message: 'Password must not contain white spaces'
+        }
     },
-  },
-  password: {
-    required: {
-      value: true,
-      message: "Password is required",
+    passwordConfirm: {
+        required: {
+            value: true,
+            message: "Confirm password is required",
+        },
+        minLength: {
+            value: 8,
+            message: "Confirm password must be at least 8 characters long",
+        },
+        pattern: {
+            value: PASSWORD_REGEX_PATTERN,
+            message: 'Password must not contain white spaces'
+        }
     },
-    minLength: {
-      value: 8,
-      message: "Password must be at least 8 characters long",
+    address: {
+        required: {
+            value: true,
+            message: "Address is required",
+        },
     },
-  },
-  passwordConfirm: {
-    required: {
-      value: true,
-      message: "Confirm password is required",
-    },
-    minLength: {
-      value: 8,
-      message: "Confirm password must be at least 8 characters long",
-    },
-  },
-  address: {
-    required: {
-      value: true,
-      message: "Address is required",
-    },
-  },
 };
 
-export { RegisterValidation };
+export {RegisterValidation};

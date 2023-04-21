@@ -54,6 +54,9 @@ const RegisterCard: FC<Props> = ({ setStep }) => {
         approved: false,
       });
 
+      // send verification email
+      await pocketBase.collection('users').requestVerification(email);
+
       toast.success("Account created successfully");
       setStep(2);
     } catch (err: any) {

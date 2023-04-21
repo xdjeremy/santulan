@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typegen": "npx pocketbase-typegen --db ../pocketbase/pb_data/data.db --out ./types/pocketbase-types.ts"
+    "typegen": "npx pocketbase-typegen --db ./pocketbase/pb_data/data.db --out ./types/pocketbase-types.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.14",
